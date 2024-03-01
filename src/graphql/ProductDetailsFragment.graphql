@@ -1,0 +1,47 @@
+fragment ProductDetails on Product {
+    price
+    name
+    slug
+    description
+    id
+    averageRating
+    images {
+        id
+        url
+    }
+    categories {
+        description
+        name
+        id
+    }
+    color
+    sizes {
+        id
+        name
+        value
+        quantity
+    }
+    collections {
+        description
+        name
+        id
+    }
+    reviews {
+        createdAt
+        rating
+        id
+        email
+        name
+        headline
+        content
+    }
+    relatedProducts {
+        name
+        id
+        slug
+        images {
+            id
+            url
+        }
+    }
+}

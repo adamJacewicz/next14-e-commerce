@@ -10070,7 +10070,72 @@ export type _SystemDateTimeFieldVariation =
   | 'combined'
   | 'localization';
 
+export type CategoriesGetByCategorySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type CategoriesGetByCategorySlugQuery = { categories: Array<{ id: string, name: string, slug: string }> };
+
+export type CategoriesGetListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesGetListQuery = { categories: Array<{ id: string, name: string, slug: string, description?: string | null }> };
+
+export type CollectionsGetByCollectionSlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type CollectionsGetByCollectionSlugQuery = { collections: Array<{ id: string, name: string, slug: string }> };
+
+export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionsGetListQuery = { collections: Array<{ id: string, name: string, slug: string, description?: string | null }> };
+
+export type ProductDetailsFragment = { price: number, name: string, slug: string, description: string, id: string, averageRating?: number | null, color: Array<Colors>, images: Array<{ id: string, url: string }>, categories: Array<{ description?: string | null, name: string, id: string }>, sizes: Array<{ id: string, name: string, value: Sizes, quantity: number }>, collections: Array<{ description?: string | null, name: string, id: string }>, reviews: Array<{ createdAt: unknown, rating?: number | null, id: string, email: string, name: string, headline: string, content: string }>, relatedProducts: Array<{ name: string, id: string, slug: string, images: Array<{ id: string, url: string }> }> };
+
+export type ProductGetByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ProductGetByIdQuery = { product?: { price: number, name: string, slug: string, description: string, id: string, averageRating?: number | null, images: Array<{ id: string, url: string }>, categories: Array<{ description?: string | null, name: string, id: string }> } | null };
+
+export type ProductGetBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type ProductGetBySlugQuery = { products: Array<{ price: number, name: string, slug: string, description: string, id: string, averageRating?: number | null, color: Array<Colors>, images: Array<{ id: string, url: string }>, categories: Array<{ description?: string | null, name: string, id: string }>, sizes: Array<{ id: string, name: string, value: Sizes, quantity: number }>, collections: Array<{ description?: string | null, name: string, id: string }>, reviews: Array<{ createdAt: unknown, rating?: number | null, id: string, email: string, name: string, headline: string, content: string }>, relatedProducts: Array<{ name: string, id: string, slug: string, images: Array<{ id: string, url: string }> }> }> };
+
 export type ProductListItemFragment = { price: number, name: string, slug: string, description: string, id: string, averageRating?: number | null, images: Array<{ id: string, url: string }>, categories: Array<{ description?: string | null, name: string, id: string }> };
+
+export type ProductsGetByCategorySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<ProductOrderByInput>;
+}>;
+
+
+export type ProductsGetByCategorySlugQuery = { productsConnection: { products: Array<{ node: { price: number, name: string, slug: string, description: string, id: string, averageRating?: number | null, images: Array<{ id: string, url: string }>, categories: Array<{ description?: string | null, name: string, id: string }> } }>, pageInfo: { hasNextPage: boolean, hasPreviousPage: boolean }, aggregate: { count: number } } };
+
+export type ProductsGetByCollectionSlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<ProductOrderByInput>;
+}>;
+
+
+export type ProductsGetByCollectionSlugQuery = { productsConnection: { products: Array<{ node: { price: number, name: string, slug: string, description: string, id: string, averageRating?: number | null, images: Array<{ id: string, url: string }>, categories: Array<{ description?: string | null, name: string, id: string }> } }>, pageInfo: { hasNextPage: boolean, hasPreviousPage: boolean }, aggregate: { count: number } } };
+
+export type ProductsGetCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductsGetCountQuery = { productsConnection: { aggregate: { count: number } } };
 
 export type ProductsGetListQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -10081,6 +10146,11 @@ export type ProductsGetListQueryVariables = Exact<{
 
 
 export type ProductsGetListQuery = { productsConnection: { products: Array<{ node: { price: number, name: string, slug: string, description: string, id: string, averageRating?: number | null, images: Array<{ id: string, url: string }>, categories: Array<{ description?: string | null, name: string, id: string }> } }>, pageInfo: { hasNextPage: boolean, hasPreviousPage: boolean }, aggregate: { count: number } } };
+
+export type ProductsGetRecommendationListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductsGetRecommendationListQuery = { products: Array<{ price: number, name: string, slug: string, description: string, id: string, averageRating?: number | null, images: Array<{ id: string, url: string }>, categories: Array<{ description?: string | null, name: string, id: string }> }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10096,6 +10166,55 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const ProductDetailsFragmentDoc = new TypedDocumentString(`
+    fragment ProductDetails on Product {
+  price
+  name
+  slug
+  description
+  id
+  averageRating
+  images {
+    id
+    url
+  }
+  categories {
+    description
+    name
+    id
+  }
+  color
+  sizes {
+    id
+    name
+    value
+    quantity
+  }
+  collections {
+    description
+    name
+    id
+  }
+  reviews {
+    createdAt
+    rating
+    id
+    email
+    name
+    headline
+    content
+  }
+  relatedProducts {
+    name
+    id
+    slug
+    images {
+      id
+      url
+    }
+  }
+}
+    `, {"fragmentName":"ProductDetails"}) as unknown as TypedDocumentString<ProductDetailsFragment, unknown>;
 export const ProductListItemFragmentDoc = new TypedDocumentString(`
     fragment ProductListItem on Product {
   price
@@ -10115,6 +10234,207 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CategoriesGetByCategorySlugDocument = new TypedDocumentString(`
+    query CategoriesGetByCategorySlug($slug: String!) {
+  categories(where: {slug: $slug}) {
+    id
+    name
+    slug
+  }
+}
+    `) as unknown as TypedDocumentString<CategoriesGetByCategorySlugQuery, CategoriesGetByCategorySlugQueryVariables>;
+export const CategoriesGetListDocument = new TypedDocumentString(`
+    query CategoriesGetList {
+  categories {
+    id
+    name
+    slug
+    description
+  }
+}
+    `) as unknown as TypedDocumentString<CategoriesGetListQuery, CategoriesGetListQueryVariables>;
+export const CollectionsGetByCollectionSlugDocument = new TypedDocumentString(`
+    query CollectionsGetByCollectionSlug($slug: String!) {
+  collections(where: {slug: $slug}) {
+    id
+    name
+    slug
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsGetByCollectionSlugQuery, CollectionsGetByCollectionSlugQueryVariables>;
+export const CollectionsGetListDocument = new TypedDocumentString(`
+    query CollectionsGetList {
+  collections {
+    id
+    name
+    slug
+    description
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsGetListQuery, CollectionsGetListQueryVariables>;
+export const ProductGetByIdDocument = new TypedDocumentString(`
+    query ProductGetById($id: ID!) {
+  product(where: {id: $id}) {
+    ...ProductListItem
+  }
+}
+    fragment ProductListItem on Product {
+  price
+  name
+  slug
+  description
+  id
+  averageRating
+  images {
+    id
+    url
+  }
+  categories {
+    description
+    name
+    id
+  }
+}`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
+export const ProductGetBySlugDocument = new TypedDocumentString(`
+    query ProductGetBySlug($slug: String!) {
+  products(where: {slug: $slug}) {
+    ...ProductDetails
+  }
+}
+    fragment ProductDetails on Product {
+  price
+  name
+  slug
+  description
+  id
+  averageRating
+  images {
+    id
+    url
+  }
+  categories {
+    description
+    name
+    id
+  }
+  color
+  sizes {
+    id
+    name
+    value
+    quantity
+  }
+  collections {
+    description
+    name
+    id
+  }
+  reviews {
+    createdAt
+    rating
+    id
+    email
+    name
+    headline
+    content
+  }
+  relatedProducts {
+    name
+    id
+    slug
+    images {
+      id
+      url
+    }
+  }
+}`) as unknown as TypedDocumentString<ProductGetBySlugQuery, ProductGetBySlugQueryVariables>;
+export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
+    query ProductsGetByCategorySlug($slug: String!, $skip: Int, $first: Int, $orderBy: ProductOrderByInput) {
+  productsConnection(
+    first: $first
+    skip: $skip
+    orderBy: $orderBy
+    where: {categories_some: {slug: $slug}}
+  ) {
+    products: edges {
+      node {
+        ...ProductListItem
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    aggregate {
+      count
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  price
+  name
+  slug
+  description
+  id
+  averageRating
+  images {
+    id
+    url
+  }
+  categories {
+    description
+    name
+    id
+  }
+}`) as unknown as TypedDocumentString<ProductsGetByCategorySlugQuery, ProductsGetByCategorySlugQueryVariables>;
+export const ProductsGetByCollectionSlugDocument = new TypedDocumentString(`
+    query ProductsGetByCollectionSlug($slug: String!, $skip: Int, $first: Int, $orderBy: ProductOrderByInput) {
+  productsConnection(
+    first: $first
+    skip: $skip
+    orderBy: $orderBy
+    where: {collections_some: {slug: $slug}}
+  ) {
+    products: edges {
+      node {
+        ...ProductListItem
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    aggregate {
+      count
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  price
+  name
+  slug
+  description
+  id
+  averageRating
+  images {
+    id
+    url
+  }
+  categories {
+    description
+    name
+    id
+  }
+}`) as unknown as TypedDocumentString<ProductsGetByCollectionSlugQuery, ProductsGetByCollectionSlugQueryVariables>;
+export const ProductsGetCountDocument = new TypedDocumentString(`
+    query ProductsGetCount {
+  productsConnection {
+    aggregate {
+      count
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductsGetCountQuery, ProductsGetCountQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($first: Int, $skip: Int, $search: String, $orderBy: ProductOrderByInput) {
   productsConnection(
@@ -10154,3 +10474,30 @@ export const ProductsGetListDocument = new TypedDocumentString(`
     id
   }
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ProductsGetRecommendationListDocument = new TypedDocumentString(`
+    query ProductsGetRecommendationList {
+  products(
+    orderBy: publishedAt_ASC
+    where: {reviews_some: {rating_gte: 4}}
+    first: 4
+  ) {
+    ...ProductListItem
+  }
+}
+    fragment ProductListItem on Product {
+  price
+  name
+  slug
+  description
+  id
+  averageRating
+  images {
+    id
+    url
+  }
+  categories {
+    description
+    name
+    id
+  }
+}`) as unknown as TypedDocumentString<ProductsGetRecommendationListQuery, ProductsGetRecommendationListQueryVariables>;

@@ -1,5 +1,11 @@
+import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from "clsx";
 import type { GraphQLResponse } from "@/types/types";
 import { type TypedDocumentString } from "@/gql/graphql";
+
+export function cn(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs));
+}
 
 export function formatMoney(value: number) {
 	return new Intl.NumberFormat("en-US", {
