@@ -42,7 +42,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 	) : (
 		<>
 			<header className="flex items-center justify-between">
-				<PageHeader>{category.name}</PageHeader>
+				<PageHeader>{category?.name}</PageHeader>
 				{/*<SortSelect />*/}
 			</header>
 			<ProductList products={products} />

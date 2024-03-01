@@ -40,7 +40,7 @@ export default async function CollectionPage({ params, searchParams }: Collectio
 	) : (
 		<>
 			<header className="flex items-center justify-between">
-				<PageHeader>{collection.name}</PageHeader>
+				<PageHeader>{collection?.name}</PageHeader>
 				{/*<SortSelect />*/}
 			</header>
 			<ProductList products={products} />
