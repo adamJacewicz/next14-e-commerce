@@ -68,7 +68,7 @@ export default async function ProductPage({
 		<>
 			<section className="mx-auto flex flex-col md:flex-row lg:w-4/5">
 				<div className="flex-1">
-					<ProductImage src={product.images[0].url} alt={product.name} />
+					<ProductImage src={product.images[0]?.url!} alt={product.name} />
 				</div>
 
 				<main className="flex flex-1 flex-col gap-6 px-4 py-2">
@@ -90,7 +90,7 @@ export default async function ProductPage({
 						{product.relatedProducts?.map((p) => (
 							<ActiveLink
 								className="block w-1/4 rounded-sm border"
-								activeClassName={" border-black"}
+								activeClassName={"border-black"}
 								key={p.id}
 								href={`/product/${p.slug}`}
 							>
@@ -99,7 +99,7 @@ export default async function ProductPage({
 									alt={p.name}
 									height={96}
 									width={96}
-									src={p.images[0]?.url}
+									src={p.images[0]?.url!}
 								/>
 							</ActiveLink>
 						))}

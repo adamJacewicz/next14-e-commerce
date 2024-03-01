@@ -80,7 +80,7 @@ export default async function ProductOpengraphImage({ params }: ProductOpengraph
 						display: "flex",
 					}}
 				>
-					<Image alt={product.name} src={product.images[0]?.url} />
+					<Image alt={product.name} src={product.images[0]?.url!} />
 				</div>
 			</div>
 		),
