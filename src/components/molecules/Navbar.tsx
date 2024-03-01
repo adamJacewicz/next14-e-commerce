@@ -5,7 +5,7 @@ import { type Route } from "next";
 // import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { NAV_LINKS } from "@/constants";
-import { SearchForm } from "@/components/atoms/SearchForm";
+// import { SearchForm } from "@/components/atoms/SearchForm";
 import { getCategoryList } from "@/service/categories.service";
 import { type NavLink } from "@/types/types";
 // import { getCartFromCookies } from "@/service/cart.service";
@@ -47,7 +47,7 @@ export async function Navbar() {
 
 			<Suspense>
 				<div className="flex items-center gap-3">
-					<SearchForm />
+					{/*<SearchForm />*/}
 					{/*<Link*/}
 					{/*	href={cart?.orderItems.length ? `/cart/sidebar` : `/cart`}*/}
 					{/*	className="relative mr-1 flex items-center p-1"*/}

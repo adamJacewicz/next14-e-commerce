@@ -1,4 +1,6 @@
 "use client";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import { useFormStatus } from "react-dom";
 // import { Button } from "@/components/ui/button";
 

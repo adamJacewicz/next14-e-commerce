@@ -13,6 +13,7 @@ import { AddToCartButton } from "@/components/atoms/AddToCartButton";
 import { type ProductSize } from "@/types/types";
 import { type Sizes } from "@/gql/graphql";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
+
 // import { ReviewList } from "@/components/molecules/ReviewList";
 
 export async function generateMetadata({
@@ -42,10 +43,13 @@ export default async function ProductPage({
 		params.set("size", value);
 		return `/product/${product?.slug}?${params.toString()}` as Route;
 	}
-	const sizes: Array<ProductSize & { url: Route }> = product.sizes.map((size) => ({
-		...size,
-		url: getSizeUrl(size.value),
-	}));
+
+	const sizes: Array<ProductSize & { url: Route }> = product.sizes.map(
+		(size) => ({
+			...size,
+			url: getSizeUrl(size.value),
+		}),
+	);
 
 	async function addToCartAction() {
 		"use server";
@@ -67,9 +71,11 @@ export default async function ProductPage({
 	return (
 		<>
 			<section className="mx-auto flex flex-col md:flex-row lg:w-4/5">
-				<div className="flex-1">
-					<ProductImage src={product.images[0]?.url!} alt={product.name} />
-				</div>
+				{product.images[0]?.url && (
+					<div className="flex-1">
+						<ProductImage src={product.images[0]?.url} alt={product.name} />
+					</div>
+				)}
 
 				<main className="flex flex-1 flex-col gap-6 px-4 py-2">
 					<div className="gap-2 text-gray-700 sm:text-xl">
@@ -94,13 +100,15 @@ export default async function ProductPage({
 								key={p.id}
 								href={`/product/${p.slug}`}
 							>
-								<ProductImage
-									className="p-2"
-									alt={p.name}
-									height={96}
-									width={96}
-									src={p.images[0]?.url!}
-								/>
+								{p.images[0]?.url && (
+									<ProductImage
+										className="p-2"
+										alt={p.name}
+										height={96}
+										width={96}
+										src={p.images[0]?.url}
+									/>
+								)}
 							</ActiveLink>
 						))}
 					</div>

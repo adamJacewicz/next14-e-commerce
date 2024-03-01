@@ -17,7 +17,9 @@ type ProductOpengraphImageProps = {
 	};
 };
 
-export default async function ProductOpengraphImage({ params }: ProductOpengraphImageProps) {
+export default async function ProductOpengraphImage({
+	params,
+}: ProductOpengraphImageProps) {
 	const product = await getProductById(params.productId);
 
 	if (!product) {
@@ -80,7 +82,9 @@ export default async function ProductOpengraphImage({ params }: ProductOpengraph
 						display: "flex",
 					}}
 				>
-					<Image alt={product.name} src={product.images[0]?.url!} />
+					{product.images[0]?.url && (
+						<Image alt={product.name} src={product.images[0].url} />
+					)}
 				</div>
 			</div>
 		),

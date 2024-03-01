@@ -37,7 +37,7 @@ export async function getProductList(options?: {
 	if (options) {
 		const perPage = options?.perPage ?? PRODUCTS_PER_PAGE;
 		variables = {
-			orderBy: options?.order ?? ORDER_OPTIONS[0].value,
+			orderBy: options?.order ?? ORDER_OPTIONS[0]?.value,
 			search: options?.search ?? "",
 			skip: (options.page - 1) * perPage,
 			first: perPage,
