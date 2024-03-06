@@ -4,7 +4,6 @@ fragment ProductDetails on Product {
     slug
     description
     id
-    averageRating
     images {
         id
         url
@@ -13,13 +12,6 @@ fragment ProductDetails on Product {
         description
         name
         id
-    }
-    color
-    sizes {
-        id
-        name
-        value
-        quantity
     }
     collections {
         description
@@ -34,14 +26,5 @@ fragment ProductDetails on Product {
         name
         headline
         content
-    }
-    relatedProducts {
-        name
-        id
-        slug
-        images {
-            id
-            url
-        }
     }
 }

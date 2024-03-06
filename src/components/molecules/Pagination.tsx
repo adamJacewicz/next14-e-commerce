@@ -66,16 +66,14 @@ export function Pagination({
 					</li>
 				}
 				{pages.map((pageNumber) => (
-					<li key={pageNumber}>
-						<button className="h-9 w-9 border border-input border-slate-300 bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground">
+					<li className="h-9 w-9 border border-input border-slate-300 shadow-sm hover:bg-accent hover:text-accent-foreground" key={pageNumber}>
 							<ActiveLink
-								className="hover:bg-gray-100"
+								className="hover:bg-gray-100 "
 								activeClassName="bg-gray-600 text-white"
 								href={getPageUrl(pageNumber)}
 							>
 								{pageNumber}
 							</ActiveLink>
-						</button>
 					</li>
 				))}
 				{hasNextPage && <li>

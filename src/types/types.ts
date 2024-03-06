@@ -1,6 +1,6 @@
 import type dynamicIconImports from "lucide-react/dynamicIconImports";
 import type { Route } from "next";
-import { type ProductOrderByInput, type ProductSize as Size } from "@/gql/graphql";
+import { type ProductOrderByInput  } from "@/gql/graphql";
 
 export type GraphQLResponse<T> =
 	| { data?: undefined; errors: { message: string }[] }
@@ -27,4 +27,4 @@ export type OrderType = {
 	value: ProductOrderByInput;
 	type: "name" | "price" | "rating";
 };
-export type ProductSize = Pick<Size, "quantity" | "value" | "name" | "id">;
+// export type ProductSize = Pick<Size, "quantity" | "value" | "name" | "id">;

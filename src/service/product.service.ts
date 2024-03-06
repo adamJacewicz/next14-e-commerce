@@ -150,7 +150,6 @@ export async function getRecommendationProducts() {
 	const { products } = await executeGraphql({
 		query: ProductsGetRecommendationListDocument,
 	});
-
 	return products;
 }
 

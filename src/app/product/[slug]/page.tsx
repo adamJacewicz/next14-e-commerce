@@ -1,4 +1,4 @@
-import type { Metadata, Route } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getProductBySlug } from "@/service/product.service";
 import { ProductRecommendationList } from "@/components/molecules/ProductRecommendationList";
@@ -10,9 +10,9 @@ import { formatMoney } from "@/lib/utils";
 // import { VariantSelect } from "@/components/molecules/VariantSelect";
 import { AddToCartButton } from "@/components/atoms/AddToCartButton";
 // import { addToCart, getOrCreateCart } from "@/service/cart.service";
-import { type ProductSize } from "@/types/types";
-import { type Sizes } from "@/gql/graphql";
-import { ActiveLink } from "@/components/atoms/ActiveLink";
+// import { type ProductSize } from "@/types/types";
+// import { type Sizes } from "@/gql/graphql";
+// import { ActiveLink } from "@/components/atoms/ActiveLink";
 
 // import { ReviewList } from "@/components/molecules/ReviewList";
 
@@ -30,26 +30,24 @@ export async function generateMetadata({
 
 export default async function ProductPage({
 	params,
-	searchParams,
 }: {
 	params: { slug: string };
-	searchParams: { size: Sizes; color: string };
 }) {
 	const product = await getProductBySlug(params.slug);
 	if (!product) return null;
 
-	function getSizeUrl(value: string) {
-		const params = new URLSearchParams(searchParams);
-		params.set("size", value);
-		return `/product/${product?.slug}?${params.toString()}` as Route;
-	}
+	// function getSizeUrl(value: string) {
+	// 	const params = new URLSearchParams(searchParams);
+	// 	params.set("size", value);
+	// 	return `/product/${product?.slug}?${params.toString()}` as Route;
+	// }
 
-	const sizes: Array<ProductSize & { url: Route }> = product.sizes.map(
-		(size) => ({
-			...size,
-			url: getSizeUrl(size.value),
-		}),
-	);
+	// const sizes: Array<ProductSize & { url: Route }> = product.sizes.map(
+	// 	(size) => ({
+	// 		...size,
+	// 		url: getSizeUrl(size.value),
+	// 	}),
+	// );
 
 	async function addToCartAction() {
 		"use server";
@@ -92,28 +90,28 @@ export default async function ProductPage({
 					<ProductListItemDescription product={product} />
 
 					{/*<VariantSelect name="size" variants={sizes} />*/}
-					<div className="flex flex-wrap gap-2">
-						{product.relatedProducts?.map((p) => (
-							<ActiveLink
-								className="block w-1/4 rounded-sm border"
-								activeClassName={"border-black"}
-								key={p.id}
-								href={`/product/${p.slug}`}
-							>
-								{p.images[0]?.url && (
-									<ProductImage
-										className="p-2"
-										alt={p.name}
-										height={96}
-										width={96}
-										src={p.images[0]?.url}
-									/>
-								)}
-							</ActiveLink>
-						))}
-					</div>
+					{/*<div className="flex flex-wrap gap-2">*/}
+					{/*	{product.relatedProducts?.map((p) => (*/}
+					{/*		<ActiveLink*/}
+					{/*			className="block w-1/4 rounded-sm border"*/}
+					{/*			activeClassName={"border-black"}*/}
+					{/*			key={p.id}*/}
+					{/*			href={`/product/${p.slug}`}*/}
+					{/*		>*/}
+					{/*			{p.images[0]?.url && (*/}
+					{/*				<ProductImage*/}
+					{/*					className="p-2"*/}
+					{/*					alt={p.name}*/}
+					{/*					height={96}*/}
+					{/*					width={96}*/}
+					{/*					src={p.images[0]?.url}*/}
+					{/*				/>*/}
+					{/*			)}*/}
+					{/*		</ActiveLink>*/}
+					{/*	))}*/}
+					{/*</div>*/}
 					<form action={addToCartAction}>
-						<AddToCartButton disabled={!!sizes.length && !searchParams.size} />
+						<AddToCartButton  />
 					</form>
 				</main>
 			</section>
