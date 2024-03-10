@@ -6,7 +6,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 export function SearchForm() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const query = searchParams.get("query") ?? "";
+	const query = searchParams.get("query")?.toString();
 	function onSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		stop?.();

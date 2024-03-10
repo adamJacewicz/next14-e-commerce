@@ -1,0 +1,15 @@
+fragment ColorVariant on ProductColorVariant {
+    __typename
+    id
+    name
+}
+fragment SizeColorVariant on ProductSizeColorVariant {
+    __typename
+    id
+    name
+}
+fragment SizeVariant on ProductSizeVariant {
+    __typename
+    id
+    name
+}

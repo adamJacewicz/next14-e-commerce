@@ -7,7 +7,7 @@ import { ProductImage } from "@/components/atoms/ProductImage";
 // import { Rating } from "@/components/molecules/Rating";
 import { ProductListItemDescription } from "@/components/atoms/ProductListItemDescription";
 import { formatMoney } from "@/lib/utils";
-// import { VariantSelect } from "@/components/molecules/VariantSelect";
+import { VariantList } from "@/components/molecules/VariantList";
 import { AddToCartButton } from "@/components/atoms/AddToCartButton";
 // import { addToCart, getOrCreateCart } from "@/service/cart.service";
 // import { type ProductSize } from "@/types/types";
@@ -35,7 +35,6 @@ export default async function ProductPage({
 }) {
 	const product = await getProductBySlug(params.slug);
 	if (!product) return null;
-
 	// function getSizeUrl(value: string) {
 	// 	const params = new URLSearchParams(searchParams);
 	// 	params.set("size", value);
@@ -89,7 +88,7 @@ export default async function ProductPage({
 
 					<ProductListItemDescription product={product} />
 
-					{/*<VariantSelect name="size" variants={sizes} />*/}
+					<VariantList variants={product.variants} />
 					{/*<div className="flex flex-wrap gap-2">*/}
 					{/*	{product.relatedProducts?.map((p) => (*/}
 					{/*		<ActiveLink*/}

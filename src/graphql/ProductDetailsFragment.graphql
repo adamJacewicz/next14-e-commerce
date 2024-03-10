@@ -27,4 +27,9 @@ fragment ProductDetails on Product {
         headline
         content
     }
+    variants {
+        ...SizeVariant
+        ...ColorVariant
+        ...SizeColorVariant
+    }
 }
