@@ -49,48 +49,41 @@ export function Pagination({
 				aria-label="pagination"
 				className="mx-auto mt-10 flex max-w-xl justify-center gap-2 p-2"
 			>
-				{hasPreviousPage &&
-					<li>
-						<button className="h-9 w-9 border border-input border-slate-300 bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground">
-							<Link
-								className={cn(
-									"bg-gray-200 hover:bg-gray-100",
-									!hasPreviousPage && "pointer-events-none text-gray-300",
-								)}
-								prefetch={hasPreviousPage}
-								href={getPageUrl(page - 1)}
-							>
-								<ChevronLeft strokeWidth={1.5} />
-							</Link>
-						</button>
-					</li>
-				}
+				<li>
+					<Link
+						className={cn(
+							"inline-flex h-9 w-9 items-center justify-center whitespace-nowrap rounded-md border border-input border-slate-300 bg-gray-200 bg-transparent text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:bg-gray-100 hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+							!hasPreviousPage && "pointer-events-none text-gray-300",
+						)}
+						prefetch={hasPreviousPage}
+						href={getPageUrl(page - 1)}
+					>
+						<ChevronLeft strokeWidth={1.5} />
+					</Link>
+				</li>
 				{pages.map((pageNumber) => (
-					<li className="h-9 w-9 border border-input border-slate-300 shadow-sm hover:bg-accent hover:text-accent-foreground" key={pageNumber}>
-							<ActiveLink
-								className="hover:bg-gray-100 "
-								activeClassName="bg-gray-600 text-white"
-								href={getPageUrl(pageNumber)}
-							>
-								{pageNumber}
-							</ActiveLink>
+					<li key={pageNumber}>
+						<ActiveLink
+							className="inline-flex h-9 w-9 items-center justify-center whitespace-nowrap rounded-md border border-input border-slate-300 bg-transparent text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:bg-gray-100 hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+							activeClassName="bg-gray-100"
+							href={getPageUrl(pageNumber)}
+						>
+							{pageNumber}
+						</ActiveLink>
 					</li>
 				))}
-				{hasNextPage && <li>
-					<button
-						className="h-9 w-9 border border-input border-slate-300 bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground">
-						<Link
-							className={cn(
-								"bg-gray-200 hover:bg-gray-100",
-								!hasNextPage && "pointer-events-none text-gray-300",
-							)}
-							prefetch={hasNextPage}
-							href={getPageUrl(page + 1)}
-						>
-							<ChevronRight strokeWidth={1.5}/>
-						</Link>
-					</button>
-				</li>}
+				<li>
+					<Link
+						className={cn(
+							"inline-flex h-9 w-9 items-center justify-center whitespace-nowrap rounded-md border border-input border-slate-300 bg-gray-200 bg-transparent text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:bg-gray-100 hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+							!hasNextPage && "pointer-events-none text-gray-300",
+						)}
+						prefetch={hasNextPage}
+						href={getPageUrl(page + 1)}
+					>
+						<ChevronRight strokeWidth={1.5} />
+					</Link>
+				</li>
 			</ul>
 		</nav>
 	);
