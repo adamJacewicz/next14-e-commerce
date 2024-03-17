@@ -1,0 +1,5 @@
+query ProductsGetRecommendationList {
+    products(orderBy: publishedAt_ASC, first: 4) {
+        ...ProductListItem
+    }
+}
