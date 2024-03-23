@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getProductBySlug } from "@/service/product.service";
 import { ProductRecommendationList } from "@/components/molecules/ProductRecommendationList";
@@ -9,12 +10,12 @@ import { ProductListItemDescription } from "@/components/atoms/ProductListItemDe
 import { formatMoney } from "@/lib/utils";
 import { VariantList } from "@/components/molecules/VariantList";
 import { AddToCartButton } from "@/components/atoms/AddToCartButton";
-// import { addToCart, getOrCreateCart } from "@/service/cart.service";
+import { addToCart, getOrCreateCart } from "@/service/cart.service";
 // import { type ProductSize } from "@/types/types";
 // import { type Sizes } from "@/gql/graphql";
 // import { ActiveLink } from "@/components/atoms/ActiveLink";
 
-// import { ReviewList } from "@/components/molecules/ReviewList";
+import { ReviewList } from "@/components/molecules/ReviewList";
 
 export async function generateMetadata({
 	params,
@@ -34,35 +35,25 @@ export default async function ProductPage({
 	params: { slug: string };
 }) {
 	const product = await getProductBySlug(params.slug);
-	if (!product) return null;
-	// function getSizeUrl(value: string) {
-	// 	const params = new URLSearchParams(searchParams);
-	// 	params.set("size", value);
-	// 	return `/product/${product?.slug}?${params.toString()}` as Route;
-	// }
-
-	// const sizes: Array<ProductSize & { url: Route }> = product.sizes.map(
-	// 	(size) => ({
-	// 		...size,
-	// 		url: getSizeUrl(size.value),
-	// 	}),
-	// );
+	if (!product) return notFound();
 
 	async function addToCartAction() {
 		"use server";
-		// if (!product) return;
-		// const cart = await getOrCreateCart();
-		// const productId = product.id;
-		// const orderItem = cart?.orderItems?.find(
-		// 	(item) => item?.product?.id === productId && item.size === searchParams.size,
-		// );
-		// await addToCart({
-		// 	orderId: orderItem ? orderItem.id : cart.id,
-		// 	productId,
-		// 	quantity: orderItem ? orderItem?.quantity + 1 : 1,
-		// 	total: orderItem ? product.price * (orderItem.quantity + 1) : product.price,
-		// 	size: searchParams.size,
-		// });
+		if (!product) return;
+		const cart = await getOrCreateCart();
+		const productId = product.id;
+		const orderItem = cart?.orderItems?.find(
+			(item) => item?.product?.id === productId,
+		);
+
+		await addToCart({
+			orderId: orderItem ? orderItem.id : cart.id,
+			productId,
+			quantity: orderItem ? orderItem?.quantity + 1 : 1,
+			total: orderItem
+				? product.price * (orderItem.quantity + 1)
+				: product.price,
+		});
 	}
 
 	return (
@@ -110,11 +101,11 @@ export default async function ProductPage({
 					{/*	))}*/}
 					{/*</div>*/}
 					<form action={addToCartAction}>
-						<AddToCartButton  />
+						<AddToCartButton />
 					</form>
 				</main>
 			</section>
-			{/*<ReviewList reviews={product.reviews} productId={product.id} />*/}
+			<ReviewList reviews={product.reviews} productId={product.id} />
 
 			<Suspense fallback={<LoadingIndicator />}>
 				<aside className="mt-12">

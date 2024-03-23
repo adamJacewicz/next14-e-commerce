@@ -3,7 +3,7 @@ import { ProductList } from "@/components/molecules/ProductList";
 import { Pagination } from "@/components/molecules/Pagination";
 import { PageHeader } from "@/components/atoms/PageHeader";
 import { type ProductOrderByInput } from "@/gql/graphql";
-// import { SortSelect } from "@/components/molecules/SortSelect";
+import { SortSelect } from "@/components/molecules/SortSelect";
 import { PRODUCTS_PER_PAGE } from "@/constants";
 
 type ProductsPageProps = {
@@ -31,7 +31,7 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
 		<>
 			<header className="flex items-center justify-between">
 				<PageHeader>All products</PageHeader>
-				{/*<SortSelect />*/}
+				<SortSelect />
 			</header>
 			<ProductList products={products} />
 			<Pagination

@@ -4,7 +4,7 @@ import { ProductList } from "@/components/molecules/ProductList";
 import { Pagination } from "@/components/molecules/Pagination";
 import { getCollectionBySlug } from "@/service/collections.service";
 import { PageHeader } from "@/components/atoms/PageHeader";
-// import { SortSelect } from "@/components/molecules/SortSelect";
+import { SortSelect } from "@/components/molecules/SortSelect";
 import { type ProductOrderByInput } from "@/gql/graphql";
 
 type CollectionPageProps = {
@@ -41,7 +41,7 @@ export default async function CollectionPage({ params, searchParams }: Collectio
 		<>
 			<header className="flex items-center justify-between">
 				<PageHeader>{collection?.name}</PageHeader>
-				{/*<SortSelect />*/}
+				<SortSelect />
 			</header>
 			<ProductList products={products} />
 			<Pagination

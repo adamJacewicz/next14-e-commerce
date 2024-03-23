@@ -2,6 +2,7 @@ import { executeGraphql } from "@/lib/utils";
 import {
 	ProductGetByIdDocument,
 	ProductGetBySlugDocument,
+	type ProductListItemFragment,
 	type ProductOrderByInput,
 	ProductsGetByCategorySlugDocument,
 	ProductsGetByCollectionSlugDocument,
@@ -53,17 +54,20 @@ export async function getProductList(options?: {
 	} = await executeGraphql({
 		variables: variables,
 		query: ProductsGetListDocument,
+		next: {
+			revalidate: 15,
+		},
 	});
 
 	return { products: products.map(({ node }) => node), count, pageInfo };
 }
 
-export async function getProductById(id: string) {
+export async function getProductById(id: ProductListItemFragment["id"]) {
 	const { product } = await executeGraphql({
 		variables: { id },
 		query: ProductGetByIdDocument,
 		next: {
-			revalidate: 60 * 60 * 24,
+			revalidate: 1,
 		},
 	});
 	return product;

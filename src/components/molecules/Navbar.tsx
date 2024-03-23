@@ -1,18 +1,19 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { type Route } from "next";
-// import { ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 // import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { NAV_LINKS } from "@/constants";
 import { SearchForm } from "@/components/atoms/SearchForm";
 import { getCategoryList } from "@/service/categories.service";
 import { type NavLink } from "@/types/types";
-// import { getCartFromCookies } from "@/service/cart.service";
+import { getCartFromCookies } from "@/service/cart.service";
 
 export async function Navbar() {
-	const [categories] = await Promise.all([getCategoryList()]);
-	// const quantity = cart?.orderItems.reduce((result, item) => result + item.quantity, 0) ?? 0;
+	const [cart, categories] = await Promise.all([getCartFromCookies(), getCategoryList()]);
+
+	const quantity = cart?.orderItems.reduce((result, item) => result + item.quantity, 0) ?? 0;
 	const categoryLinks: NavLink[] = categories.map((category) => ({
 		exact: false,
 		label: category.name,
@@ -50,16 +51,16 @@ export async function Navbar() {
 					<Suspense>
 						<SearchForm />
 					</Suspense>
-					{/*<Link*/}
-					{/*	href={cart?.orderItems.length ? `/cart/sidebar` : `/cart`}*/}
-					{/*	className="relative mr-1 flex items-center p-1"*/}
-					{/*>*/}
-					{/*	<ShoppingCart aria-hidden="true" />*/}
+					<Link
+						href={cart?.orderItems.length ? `/cart/sidebar` : `/cart`}
+						className="relative mr-1 flex items-center p-1"
+					>
+						<ShoppingCart aria-hidden="true" />
 
-					{/*	<span className="absolute right-0 top-0 flex h-[18px] w-[18px] -translate-y-1/3 translate-x-1/2 items-center justify-center rounded-full bg-slate-900 text-xs	font-semibold leading-none text-white">*/}
-					{/*		{quantity}*/}
-					{/*	</span>*/}
-					{/*</Link>*/}
+						<span className="absolute right-0 top-0 flex h-[18px] w-[18px] -translate-y-1/3 translate-x-1/2 items-center justify-center rounded-full bg-slate-900 text-xs	font-semibold leading-none text-white">
+							{quantity}
+						</span>
+					</Link>
 					{/*<SignedIn>*/}
 					{/*	<UserButton userProfileMode="navigation" />*/}
 					{/*</SignedIn>*/}

@@ -5,7 +5,7 @@ import { Pagination } from "@/components/molecules/Pagination";
 import { getCategoryBySlug } from "@/service/categories.service";
 import { PageHeader } from "@/components/atoms/PageHeader";
 import { type ProductOrderByInput } from "@/gql/graphql";
-// import { SortSelect } from "@/components/molecules/SortSelect";
+import { SortSelect } from "@/components/molecules/SortSelect";
 
 type CategoryPageProps = {
 	params: { category: string; page: string };
@@ -43,7 +43,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 		<>
 			<header className="flex items-center justify-between">
 				<PageHeader>{category?.name}</PageHeader>
-				{/*<SortSelect />*/}
+				<SortSelect />
 			</header>
 			<ProductList products={products} />
 			<Pagination

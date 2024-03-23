@@ -6,7 +6,10 @@ const nextConfig = {
 		typedRoutes: true,
 	},
 	images: {
-		remotePatterns: [{ hostname: "media.graphassets.com" }, { hostname: "img.clerk.com" }],
+		remotePatterns: [
+			{ hostname: "media.graphassets.com", protocol: "https" },
+			{ hostname: "img.clerk.com" },
+		],
 	},
 	redirects: async () => {
 		return [

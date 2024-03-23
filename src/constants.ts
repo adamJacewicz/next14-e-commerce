@@ -1,6 +1,6 @@
 import { type NavLink, type OrderType } from "@/types/types";
 
-export const PRODUCTS_PER_PAGE = 1;
+export const PRODUCTS_PER_PAGE = 4;
 
 export const NAV_LINKS: NavLink[] = [
 	{
