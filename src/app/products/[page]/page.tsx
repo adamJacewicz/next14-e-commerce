@@ -16,14 +16,20 @@ type ProductsPageProps = {
 };
 export async function generateStaticParams() {
 	const count = await getProductsCount();
-	return Array.from({ length: Math.ceil(count / PRODUCTS_PER_PAGE) }, (_, i) => ({
-		page: `${i + 1}`,
-	}));
+	return Array.from(
+		{ length: Math.ceil(count / PRODUCTS_PER_PAGE) },
+		(_, i) => ({
+			page: `${i + 1}`,
+		}),
+	);
 }
-export default async function ProductsPage({ params, searchParams }: ProductsPageProps) {
+export default async function ProductsPage({
+	params,
+	searchParams,
+}: ProductsPageProps) {
 	const page = Number(params.page);
 	const { order } = searchParams;
-	const { products, pageInfo, count } = await getProductList({
+	const { products, count } = await getProductList({
 		page,
 		order,
 	});
@@ -34,13 +40,7 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
 				<SortSelect />
 			</header>
 			<ProductList products={products} />
-			<Pagination
-				basePath={`/products`}
-				hasNextPage={pageInfo.hasNextPage}
-				hasPreviousPage={pageInfo.hasPreviousPage}
-				page={page}
-				total={count}
-			/>
+			<Pagination basePath={`/products`} page={page} total={count} />
 		</>
 	);
 }

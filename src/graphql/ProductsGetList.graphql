@@ -5,10 +5,6 @@ query ProductsGetList($first: Int, $skip: Int, $search: String, $orderBy: Produc
                 ...ProductListItem
             }
         }
-        pageInfo {
-            hasNextPage
-            hasPreviousPage
-        }
         aggregate {
             count
         }

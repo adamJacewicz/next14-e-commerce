@@ -5,7 +5,7 @@ import { getProductBySlug } from "@/service/product.service";
 import { ProductRecommendationList } from "@/components/molecules/ProductRecommendationList";
 import { LoadingIndicator } from "@/components/atoms/LoadingIndicator";
 import { ProductImage } from "@/components/atoms/ProductImage";
-// import { Rating } from "@/components/molecules/Rating";
+import { Rating } from "@/components/molecules/Rating";
 import { ProductListItemDescription } from "@/components/atoms/ProductListItemDescription";
 import { formatMoney } from "@/lib/utils";
 import { VariantList } from "@/components/molecules/VariantList";
@@ -74,7 +74,7 @@ export default async function ProductPage({
 						</div>
 						<h1 className="font-medium">{product.name}</h1>
 					</div>
-					{/*<Rating rating={product.averageRating as number} />*/}
+					<Rating rating={product.averageRating as number} />
 					<p>{formatMoney(product.price / 100)}</p>
 
 					<ProductListItemDescription product={product} />

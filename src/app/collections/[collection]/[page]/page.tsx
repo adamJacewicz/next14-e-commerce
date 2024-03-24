@@ -24,9 +24,12 @@ export async function generateMetadata({
 	};
 }
 
-export default async function CollectionPage({ params, searchParams }: CollectionPageProps) {
+export default async function CollectionPage({
+	params,
+	searchParams,
+}: CollectionPageProps) {
 	const page = Number(params.page);
-	const [{ products, pageInfo, count }, collection] = await Promise.all([
+	const [{ products, count }, collection] = await Promise.all([
 		getProductsListByCollection({
 			slug: params.collection,
 			page,
@@ -46,8 +49,6 @@ export default async function CollectionPage({ params, searchParams }: Collectio
 			<ProductList products={products} />
 			<Pagination
 				basePath={`/collections/${params.collection}`}
-				hasPreviousPage={pageInfo.hasPreviousPage}
-				hasNextPage={pageInfo.hasNextPage}
 				page={page}
 				total={count}
 			/>

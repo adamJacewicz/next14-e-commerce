@@ -2,7 +2,12 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { type Route } from "next";
 import { ShoppingCart } from "lucide-react";
-// import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+	SignInButton,
+	SignedIn,
+	SignedOut,
+	UserButton,
+} from "@clerk/nextjs";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { NAV_LINKS } from "@/constants";
 import { SearchForm } from "@/components/atoms/SearchForm";
@@ -11,9 +16,12 @@ import { type NavLink } from "@/types/types";
 import { getCartFromCookies } from "@/service/cart.service";
 
 export async function Navbar() {
-	const [cart, categories] = await Promise.all([getCartFromCookies(), getCategoryList()]);
-
-	const quantity = cart?.orderItems.reduce((result, item) => result + item.quantity, 0) ?? 0;
+	const [cart, categories] = await Promise.all([
+		getCartFromCookies(),
+		getCategoryList(),
+	]);
+	const quantity =
+		cart?.orderItems.reduce((result, item) => result + item.quantity, 0) ?? 0;
 	const categoryLinks: NavLink[] = categories.map((category) => ({
 		exact: false,
 		label: category.name,
@@ -61,12 +69,12 @@ export async function Navbar() {
 							{quantity}
 						</span>
 					</Link>
-					{/*<SignedIn>*/}
-					{/*	<UserButton userProfileMode="navigation" />*/}
-					{/*</SignedIn>*/}
-					{/*<SignedOut>*/}
-					{/*	<SignInButton />*/}
-					{/*</SignedOut>*/}
+					<SignedIn>
+						<UserButton userProfileMode="navigation" />
+					</SignedIn>
+					<SignedOut>
+						<SignInButton />
+					</SignedOut>
 				</div>
 			</Suspense>
 		</div>

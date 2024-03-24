@@ -28,7 +28,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 	const page = Number(params.page);
 	const { order } = searchParams;
 
-	const [{ products, pageInfo, count }, category] = await Promise.all([
+	const [{ products, count }, category] = await Promise.all([
 		getProductsListByCategory({
 			slug: params.category,
 			page,
@@ -47,8 +47,6 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 			</header>
 			<ProductList products={products} />
 			<Pagination
-				hasNextPage={pageInfo.hasNextPage}
-				hasPreviousPage={pageInfo.hasPreviousPage}
 				basePath={`/categories/${params.category}`}
 				page={page}
 				total={count}

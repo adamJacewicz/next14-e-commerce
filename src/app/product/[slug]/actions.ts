@@ -2,8 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { type Review } from "@/types/types";
-import {  executeGraphql } from "@/lib/utils";
-import {  ReviewAddToProductDocument } from "@/gql/graphql";
+import { average, executeGraphql } from "@/lib/utils";
+import {
+	ReviewAddToProductDocument,
+	ProductUpdateAverageRatingDocument,
+} from "@/gql/graphql";
 
 export async function addReviewAction({
 	review,
@@ -24,21 +27,22 @@ export async function addReviewAction({
 			productId,
 		},
 	});
-	// if (response.createReview) {
-	// 	await executeGraphql({
-	// 		query: ProductUpdateAverageRatingDocument,
-	// 		variables: {
-	// 			productId,
-	// 			averageRating: parseFloat(
-	// 				average(
-	// 					response.createReview.product?.reviews.map(({ rating }) => rating ?? 0) ?? [],
-	// 				).toFixed(1),
-	// 			),
-	// 		},
-	// 	});
-	// 	revalidatePath(`/product/${productId}`);
-	// }
-	revalidatePath(`/product/${productId}`);
+	if (response.createReview) {
+		await executeGraphql({
+			query: ProductUpdateAverageRatingDocument,
+			variables: {
+				productId,
+				averageRating: parseFloat(
+					average(
+						response.createReview.product?.reviews.map(
+							({ rating }) => rating ?? 0,
+						) ?? [],
+					).toFixed(1),
+				),
+			},
+		});
+		revalidatePath(`/product/${productId}`);
+	}
 
 	return response;
 }

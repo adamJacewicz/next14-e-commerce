@@ -49,7 +49,6 @@ export async function getProductList(options?: {
 		productsConnection: {
 			aggregate: { count },
 			products,
-			pageInfo,
 		},
 	} = await executeGraphql({
 		variables: variables,
@@ -59,7 +58,7 @@ export async function getProductList(options?: {
 		},
 	});
 
-	return { products: products.map(({ node }) => node), count, pageInfo };
+	return { products: products.map(({ node }) => node), count };
 }
 
 export async function getProductById(id: ProductListItemFragment["id"]) {
@@ -98,7 +97,6 @@ export async function getProductsListByCategory({
 	const {
 		productsConnection: {
 			products,
-			pageInfo,
 			aggregate: { count },
 		},
 	} = await executeGraphql({
@@ -114,7 +112,7 @@ export async function getProductsListByCategory({
 		},
 	});
 
-	return { products: products.map(({ node }) => node), count, pageInfo };
+	return { products: products.map(({ node }) => node), count };
 }
 
 export async function getProductsListByCollection({
@@ -131,7 +129,6 @@ export async function getProductsListByCollection({
 	const {
 		productsConnection: {
 			products,
-			pageInfo,
 			aggregate: { count },
 		},
 	} = await executeGraphql({
@@ -144,7 +141,7 @@ export async function getProductsListByCollection({
 		query: ProductsGetByCollectionSlugDocument,
 	});
 
-	return { products: products.map(({ node }) => node), count, pageInfo };
+	return { products: products.map(({ node }) => node), count };
 }
 
 // const wait = async (delay: number) => new Promise((resolve) => setTimeout(resolve, delay));

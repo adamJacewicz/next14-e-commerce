@@ -1,13 +1,13 @@
 import { formatMoney } from "@/lib/utils";
 import { type ProductListItemFragment } from "@/gql/graphql";
-// import { Rating } from "@/components/molecules/Rating";
+import { Rating } from "@/components/molecules/Rating";
 
 type ProductListItemHeadProps = {
 	product: ProductListItemFragment;
 };
 
 export const ProductListItemHead = ({
-	product: { name, price, categories },
+	product: { name, price, categories, averageRating },
 }: ProductListItemHeadProps) => {
 	return (
 		<div>
@@ -21,7 +21,7 @@ export const ProductListItemHead = ({
 						<span key={id}>{name}</span>
 					))}
 				</div>
-				{/*{averageRating && <Rating rating={averageRating} />}*/}
+				{averageRating && <Rating rating={averageRating} />}
 			</div>
 		</div>
 	);

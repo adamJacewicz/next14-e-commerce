@@ -15,7 +15,6 @@ export function ChangeQuantity({
 	const [optimisticQuantity, setOptimisticQuantity] = useOptimistic(quantity);
 
 	async function setQuantity(value: number) {
-		console.log(value)
 		if (value <= 0) return;
 		setOptimisticQuantity(value);
 		await changeItemQuantity({ itemId, quantity: value, total: value * price });
