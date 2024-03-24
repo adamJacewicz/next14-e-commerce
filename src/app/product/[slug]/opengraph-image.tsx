@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
-import Image from "next/image";
-import { getProductById } from "@/service/product.service";
+// import NextImage from "next/image";
+import { getProductBySlug } from "@/service/product.service";
 
 // export const runtime = "edge";
 export const alt = "Ecommerce";
@@ -13,15 +13,14 @@ export const contentType = "image/png";
 
 type ProductOpengraphImageProps = {
 	params: {
-		productId: string;
+		slug: string;
 	};
 };
 
 export default async function ProductOpengraphImage({
 	params,
 }: ProductOpengraphImageProps) {
-	const product = await getProductById(params.productId);
-
+	const product = await getProductBySlug(params.slug);
 	if (!product) {
 		return new ImageResponse(
 			(
@@ -83,7 +82,7 @@ export default async function ProductOpengraphImage({
 					}}
 				>
 					{product.images[0]?.url && (
-						<Image alt={product.name} src={product.images[0].url} />
+						<img alt={product.name} src={product.images[0].url} />
 					)}
 				</div>
 			</div>

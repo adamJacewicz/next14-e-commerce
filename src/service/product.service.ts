@@ -2,6 +2,7 @@ import { executeGraphql } from "@/lib/utils";
 import {
 	ProductGetByIdDocument,
 	ProductGetBySlugDocument,
+	type ProductListItemFragment,
 	type ProductOrderByInput,
 	ProductsGetByCategorySlugDocument,
 	ProductsGetByCollectionSlugDocument,
@@ -48,22 +49,24 @@ export async function getProductList(options?: {
 		productsConnection: {
 			aggregate: { count },
 			products,
-			pageInfo,
 		},
 	} = await executeGraphql({
 		variables: variables,
 		query: ProductsGetListDocument,
+		next: {
+			revalidate: 15,
+		},
 	});
 
-	return { products: products.map(({ node }) => node), count, pageInfo };
+	return { products: products.map(({ node }) => node), count };
 }
 
-export async function getProductById(id: string) {
+export async function getProductById(id: ProductListItemFragment["id"]) {
 	const { product } = await executeGraphql({
 		variables: { id },
 		query: ProductGetByIdDocument,
 		next: {
-			revalidate: 60 * 60 * 24,
+			revalidate: 1,
 		},
 	});
 	return product;
@@ -94,7 +97,6 @@ export async function getProductsListByCategory({
 	const {
 		productsConnection: {
 			products,
-			pageInfo,
 			aggregate: { count },
 		},
 	} = await executeGraphql({
@@ -110,7 +112,7 @@ export async function getProductsListByCategory({
 		},
 	});
 
-	return { products: products.map(({ node }) => node), count, pageInfo };
+	return { products: products.map(({ node }) => node), count };
 }
 
 export async function getProductsListByCollection({
@@ -127,7 +129,6 @@ export async function getProductsListByCollection({
 	const {
 		productsConnection: {
 			products,
-			pageInfo,
 			aggregate: { count },
 		},
 	} = await executeGraphql({
@@ -140,7 +141,7 @@ export async function getProductsListByCollection({
 		query: ProductsGetByCollectionSlugDocument,
 	});
 
-	return { products: products.map(({ node }) => node), count, pageInfo };
+	return { products: products.map(({ node }) => node), count };
 }
 
 // const wait = async (delay: number) => new Promise((resolve) => setTimeout(resolve, delay));

@@ -2,17 +2,16 @@
 import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { type Route } from "next";
-import type {
-	ColorVariantFragment,
-	SizeColorVariantFragment,
-	SizeVariantFragment,
-} from "@/gql/graphql";
 
 type SingleProductVariantProps = {
-	variants:
-		| SizeColorVariantFragment[]
-		| ColorVariantFragment[]
-		| SizeVariantFragment[];
+	variants: {
+		__typename:
+			| "ProductColorVariant"
+			| "ProductSizeColorVariant"
+			| "ProductSizeVariant";
+		id: string;
+		name: string;
+	}[];
 };
 
 export const VariantList = ({ variants }: SingleProductVariantProps) => {
@@ -40,9 +39,9 @@ export const VariantList = ({ variants }: SingleProductVariantProps) => {
 			}
 		>
 			<option disabled>Size/Color</option>
-			{variants.map((v) => (
-				<option key={v.id} value={v.name}>
-					{v.name}
+			{variants.map(({ id, name }) => (
+				<option key={id} value={name}>
+					{name}
 				</option>
 			))}
 		</select>

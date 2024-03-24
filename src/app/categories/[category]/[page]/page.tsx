@@ -5,7 +5,7 @@ import { Pagination } from "@/components/molecules/Pagination";
 import { getCategoryBySlug } from "@/service/categories.service";
 import { PageHeader } from "@/components/atoms/PageHeader";
 import { type ProductOrderByInput } from "@/gql/graphql";
-// import { SortSelect } from "@/components/molecules/SortSelect";
+import { SortSelect } from "@/components/molecules/SortSelect";
 
 type CategoryPageProps = {
 	params: { category: string; page: string };
@@ -28,7 +28,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 	const page = Number(params.page);
 	const { order } = searchParams;
 
-	const [{ products, pageInfo, count }, category] = await Promise.all([
+	const [{ products, count }, category] = await Promise.all([
 		getProductsListByCategory({
 			slug: params.category,
 			page,
@@ -43,12 +43,10 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 		<>
 			<header className="flex items-center justify-between">
 				<PageHeader>{category?.name}</PageHeader>
-				{/*<SortSelect />*/}
+				<SortSelect />
 			</header>
 			<ProductList products={products} />
 			<Pagination
-				hasNextPage={pageInfo.hasNextPage}
-				hasPreviousPage={pageInfo.hasPreviousPage}
 				basePath={`/categories/${params.category}`}
 				page={page}
 				total={count}

@@ -1,0 +1,20 @@
+query OrdersGetByEmail($email: String!) {
+    orders(where: {email: $email}) {
+        email
+        id
+        total
+        createdAt
+        orderItems {
+            id
+            total
+            quantity
+            product {
+                name
+                price
+                images {
+                    url
+                }
+            }
+        }
+    }
+}

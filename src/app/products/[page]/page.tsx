@@ -3,7 +3,7 @@ import { ProductList } from "@/components/molecules/ProductList";
 import { Pagination } from "@/components/molecules/Pagination";
 import { PageHeader } from "@/components/atoms/PageHeader";
 import { type ProductOrderByInput } from "@/gql/graphql";
-// import { SortSelect } from "@/components/molecules/SortSelect";
+import { SortSelect } from "@/components/molecules/SortSelect";
 import { PRODUCTS_PER_PAGE } from "@/constants";
 
 type ProductsPageProps = {
@@ -16,14 +16,20 @@ type ProductsPageProps = {
 };
 export async function generateStaticParams() {
 	const count = await getProductsCount();
-	return Array.from({ length: Math.ceil(count / PRODUCTS_PER_PAGE) }, (_, i) => ({
-		page: `${i + 1}`,
-	}));
+	return Array.from(
+		{ length: Math.ceil(count / PRODUCTS_PER_PAGE) },
+		(_, i) => ({
+			page: `${i + 1}`,
+		}),
+	);
 }
-export default async function ProductsPage({ params, searchParams }: ProductsPageProps) {
+export default async function ProductsPage({
+	params,
+	searchParams,
+}: ProductsPageProps) {
 	const page = Number(params.page);
 	const { order } = searchParams;
-	const { products, pageInfo, count } = await getProductList({
+	const { products, count } = await getProductList({
 		page,
 		order,
 	});
@@ -31,16 +37,10 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
 		<>
 			<header className="flex items-center justify-between">
 				<PageHeader>All products</PageHeader>
-				{/*<SortSelect />*/}
+				<SortSelect />
 			</header>
 			<ProductList products={products} />
-			<Pagination
-				basePath={`/products`}
-				hasNextPage={pageInfo.hasNextPage}
-				hasPreviousPage={pageInfo.hasPreviousPage}
-				page={page}
-				total={count}
-			/>
+			<Pagination basePath={`/products`} page={page} total={count} />
 		</>
 	);
 }

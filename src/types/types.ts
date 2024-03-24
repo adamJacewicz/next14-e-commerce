@@ -10,6 +10,7 @@ export type ArrElement<T> = T extends (infer U)[] ? U : never;
 
 export type IconName = keyof typeof dynamicIconImports;
 
+
 export type NavLink = { exact?: boolean; label: string; href: Route };
 
 export type Review = {

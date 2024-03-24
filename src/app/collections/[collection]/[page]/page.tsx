@@ -4,7 +4,7 @@ import { ProductList } from "@/components/molecules/ProductList";
 import { Pagination } from "@/components/molecules/Pagination";
 import { getCollectionBySlug } from "@/service/collections.service";
 import { PageHeader } from "@/components/atoms/PageHeader";
-// import { SortSelect } from "@/components/molecules/SortSelect";
+import { SortSelect } from "@/components/molecules/SortSelect";
 import { type ProductOrderByInput } from "@/gql/graphql";
 
 type CollectionPageProps = {
@@ -24,9 +24,12 @@ export async function generateMetadata({
 	};
 }
 
-export default async function CollectionPage({ params, searchParams }: CollectionPageProps) {
+export default async function CollectionPage({
+	params,
+	searchParams,
+}: CollectionPageProps) {
 	const page = Number(params.page);
-	const [{ products, pageInfo, count }, collection] = await Promise.all([
+	const [{ products, count }, collection] = await Promise.all([
 		getProductsListByCollection({
 			slug: params.collection,
 			page,
@@ -41,13 +44,11 @@ export default async function CollectionPage({ params, searchParams }: Collectio
 		<>
 			<header className="flex items-center justify-between">
 				<PageHeader>{collection?.name}</PageHeader>
-				{/*<SortSelect />*/}
+				<SortSelect />
 			</header>
 			<ProductList products={products} />
 			<Pagination
 				basePath={`/collections/${params.collection}`}
-				hasPreviousPage={pageInfo.hasPreviousPage}
-				hasNextPage={pageInfo.hasNextPage}
 				page={page}
 				total={count}
 			/>

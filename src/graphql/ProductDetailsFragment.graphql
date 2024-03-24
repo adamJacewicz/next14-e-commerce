@@ -1,6 +1,7 @@
 fragment ProductDetails on Product {
     price
     name
+    averageRating
     slug
     description
     id

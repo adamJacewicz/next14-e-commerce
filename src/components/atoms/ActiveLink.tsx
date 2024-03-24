@@ -18,10 +18,13 @@ export function ActiveLink<T extends string>({
 	...rest
 }: ActiveLinkProps<T>) {
 	const currentPath = usePathname();
-	const matchedPath = typeof href === "string" ? href : href.pathname || "";
+	const [matchedPath] = (
+		typeof href === "string" ? href : href.pathname || ""
+	).split("?");
+
 	const isActive = exact
 		? currentPath === matchedPath
-		: currentPath.startsWith(matchedPath);
+		: currentPath.startsWith(matchedPath as string);
 
 	return (
 		<Link
